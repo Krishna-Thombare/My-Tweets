@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tweet/css/register.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="register-page">
+    <div class="register-card">
+
+        <h2 class="register-title">Create your account</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="register-group">
+                <label class="register-label" for="{{ form.username.id_for_label }}">Username</label>
+                {{ form.username }}
+                {% for error in form.username.errors %}
+                    <div class="register-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="register-group">
+                <label class="register-label" for="{{ form.handle.id_for_label }}">Handle</label>
+                {{ form.handle }}
+                <p class="register-help">This will be your unique @handle</p>
+                {% for error in form.handle.errors %}
+                    <div class="register-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="register-group">
+                <label class="register-label" for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                    <div class="register-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="register-group">
+                <label class="register-label" for="{{ form.photo.id_for_label }}">Profile Photo (optional)</label>
+                {{ form.photo }}
+                {% for error in form.photo.errors %}
+                    <div class="register-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="register-row">
+                <div class="register-group">
+                    <label class="register-label" for="{{ form.city.id_for_label }}">City</label>
+                    {{ form.city }}
+                    {% for error in form.city.errors %}
+                        <div class="register-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="register-group">
+                    <label class="register-label" for="{{ form.country.id_for_label }}">Country</label>
+                    {{ form.country }}
+                    {% for error in form.country.errors %}
+                        <div class="register-error">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="register-group">
+                <label class="register-label" for="{{ form.password1.id_for_label }}">Password</label>
+                {{ form.password1 }}
+                {% for error in form.password1.errors %}
+                    <div class="register-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="register-group">
+                <label class="register-label" for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                {{ form.password2 }}
+                {% for error in form.password2.errors %}
+                    <div class="register-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <button class="register-submit" type="submit">Register</button>
+
+        </form>
+
+        <p class="register-footer">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+
+    </div>
+</div>
+
+{% endblock %}
