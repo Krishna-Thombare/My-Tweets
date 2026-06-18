@@ -1,18 +1,34 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block title %}
-My Tweets
+Delete Tweet
 {% endblock %}
 
-{% block content %} 
-
-<h1 class="text-center mt-4">Are you sure you want to delete this tweet?</h1>
-
-<form method="POST"> 
-    {% csrf_token %}
-    <button class="btn btn-danger">Delete</button>
-    <a class="btn btn-success" href="{% url 'tweet_list' %}">Cancel</a>
-</form>
-
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tweet/css/tweet_form.css' %}">
 {% endblock %}
 
+{% block content %}
+
+<div class="tweet-form-page">
+    <div class="tweet-form-card">
+
+        <h2 class="tweet-form-title">Delete this tweet?</h2>
+
+        <p class="delete-confirm-text">This action cannot be undone.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="tweet-form-actions">
+                <button class="tweet-form-submit delete-confirm-btn" type="submit">Delete</button>
+                {% if not embed %}
+                    <a href="{% url 'tweet_list' %}" class="tweet-form-back">Cancel</a>
+                {% endif %}
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
