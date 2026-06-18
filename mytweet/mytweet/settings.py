@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -128,3 +128,5 @@ LOGIN_URL = '/accounts/login'
 
 LOGIN_REDIRECT_URL = '/mytweets/'
 LOGOUT_REDIRECT_URL = '/mytweets/'
+
+AUTH_USER_MODEL = 'tweet.CustomUser'

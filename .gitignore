@@ -5,6 +5,7 @@ __pycache__/
 .env
 
 db.sqlite3
+mytweet/db.sqlite3.backup
 
 media/
 
