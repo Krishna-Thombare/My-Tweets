@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+My Tweets
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tweet/css/tweet_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="tweet-form-page">
+    <div class="tweet-form-card">
+
+        <h2 class="tweet-form-title">
+            {% if form.instance.pk %}
+                Edit Tweet
+            {% else %}
+                Create Tweet
+            {% endif %}
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="tweet-form-group">
+                <label class="tweet-form-label" for="{{ form.text.id_for_label }}">Got something to share?</label>
+                {{ form.text }}
+                {% for error in form.text.errors %}
+                    <div class="tweet-form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="tweet-form-group">
+                <label class="tweet-form-label" for="{{ form.photo.id_for_label }}">Photo (optional)</label>
+                {{ form.photo }}
+                {% if form.instance.photo %}
+                    <img src="{{ form.instance.photo.url }}" class="tweet-form-current-img" alt="Current photo">
+                {% endif %}
+                {% for error in form.photo.errors %}
+                    <div class="tweet-form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="tweet-form-actions">
+                <button class="tweet-form-submit" type="submit">
+                    {% if form.instance.pk %}Save Changes{% else %}Post Tweet{% endif %}
+                </button>
+                {% if not embed %}
+                    <a href="{% url 'tweet_list' %}" class="tweet-form-back">Cancel</a>
+                {% endif %}
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
