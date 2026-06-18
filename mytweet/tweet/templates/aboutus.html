@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tweet/css/aboutus.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="aboutus-page">
+    <div class="aboutus-card">
+        <h1 class="aboutus-title">About MyTweets</h1>
+        <p class="aboutus-text">
+            MyTweets is a simple, X inspired platform where you can share short thoughts,
+            photos, and moments with the world. Create an account, post your tweets, follow
+            along with what others are sharing, and explore profiles across the community —
+            all in one clean, lightweight space built for quick, everyday sharing.
+        </p>
+    </div>
+
+    <div class="explore-card">
+        <h3 class="explore-title">Explore More</h3>
+        <div class="explore-links">
+            <a href="https://my-digital-diary.onrender.com/" target="_blank" rel="noopener noreferrer" class="explore-link">
+                <span class="explore-link-name">My Digital Diary</span>
+                <span class="explore-link-arrow">&rarr;</span>
+            </a>
+            <a href="https://weathertoday-0lis.onrender.com/" target="_blank" rel="noopener noreferrer" class="explore-link">
+                <span class="explore-link-name">Weather Today</span>
+                <span class="explore-link-arrow">&rarr;</span>
+            </a>
+            <a href="https://huggingface.co/spaces/Replit17/Semantic-Book-Recommender" target="_blank" rel="noopener noreferrer" class="explore-link">
+                <span class="explore-link-name">Semantic Book Recommender</span>
+                <span class="explore-link-arrow">&rarr;</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
