@@ -2,7 +2,13 @@ function openTweetModal(id) {
     const card = document.querySelector('[data-id="' + id + '"]');
     if (!card) return;
 
-    document.getElementById('modalImg').src = card.dataset.img;
+    const modalImg = document.getElementById('modalImg');
+        modalImg.src = card.dataset.img;
+        if (!card.dataset.tweetHasPhoto || card.dataset.tweetHasPhoto === '0') {
+            modalImg.classList.add('profile-fallback');
+        } else {
+            modalImg.classList.remove('profile-fallback');
+        }
     const handleHtml = card.dataset.handle
         ? ' <span class="grid-card-handle">@' + card.dataset.handle + '</span>'
         : '';
@@ -27,3 +33,58 @@ function openTweetModal(id) {
     document.body.style.overflow = 'hidden';
 }
 
+function closeTweetModal() {
+    document.getElementById('tweetModalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function closeTweetModalOnOverlay(e) {
+    if (e.target.id === 'tweetModalOverlay') closeTweetModal();
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        closeTweetModal();
+        closeFormModal();
+    }
+});
+
+function openFormModal(url) {
+    document.getElementById('formModalIframe').src = url;
+    document.getElementById('formModalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeFormModal() {
+    document.getElementById('formModalOverlay').classList.remove('active');
+    document.getElementById('formModalIframe').src = '';
+    document.body.style.overflow = '';
+}
+
+function closeFormModalOnOverlay(e) {
+    if (e.target.id === 'formModalOverlay') closeFormModal();
+}
+
+const newTweetBtn = document.getElementById('newTweetBtn');
+if (newTweetBtn) {
+    newTweetBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openFormModal(this.dataset.createUrl + '?embed=1');
+    });
+}
+
+const emptyStateBtn = document.getElementById('emptyStateNewTweetBtn');
+if (emptyStateBtn) {
+    emptyStateBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openFormModal(this.dataset.createUrl + '?embed=1');
+    });
+}
+
+const profileEditBtn = document.getElementById('profileEditBtn');
+if (profileEditBtn) {
+    profileEditBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openFormModal(this.dataset.createUrl + '?embed=1');
+    });
+}
