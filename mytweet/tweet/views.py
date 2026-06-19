@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Tweet
 from .forms import TweetForm
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import HttpResponse
@@ -37,7 +37,26 @@ def tweet_create(request):
         'embed': request.GET.get('embed') == '1',
     })
 
+@login_required
+@xframe_options_exempt
+def tweet_edit(request, tweet_id):
+    tweet = get_object_or_404(Tweet, pk=tweet_id, user=request.user)
+    if request.method == 'POST':
+        form = TweetForm(request.POST, request.FILES, instance=tweet)
+        if form.is_valid():
+            form.save()
+            if request.GET.get('embed') == '1':
+                return HttpResponse('<script>window.parent.location.reload();</script>')
+            return redirect('tweet_list')
+    else:
+        form = TweetForm(instance=tweet)
+    return render(request, 'tweet_form.html', {
+        'form': form,
+        'embed': request.GET.get('embed') == '1',
+    })
+    
 
+    
 
 
     
