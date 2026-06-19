@@ -1,0 +1,144 @@
+body.embed-mode .navbar {
+    display: none;
+}
+
+.tweet-form-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 32px 20px;
+}
+
+.tweet-form-card {
+    background: #000000;
+    border: 1px solid #a5d7ff;
+    border-radius: 14px;
+    padding: 28px 26px;
+}
+
+.tweet-form-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.tweet-form-group {
+    margin-bottom: 18px;
+}
+
+.tweet-form-label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #c7ccd1;
+    margin-bottom: 6px;
+}
+
+.tweet-form-textarea {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #787878;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14.5px;
+    padding: 10px 12px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.tweet-form-textarea:focus {
+    outline: none;
+    border-color: #1d9bf0;
+    box-shadow: 0 0 0 2px rgba(29, 155, 240, 0.25);
+}
+
+.tweet-form-file {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #787878;
+    border-radius: 8px;
+    color: #c7ccd1;
+    font-size: 13.5px;
+    padding: 8px 10px;
+}
+
+.tweet-form-current-img {
+    margin-top: 10px;
+    border-radius: 8px;
+    max-width: 70px;
+    max-height: 70px;
+    object-fit: cover;
+    display: block;
+}
+
+.tweet-form-error {
+    color: #ff6b6b;
+    font-size: 12.5px;
+    margin-top: 4px;
+}
+
+.tweet-form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.tweet-form-submit {
+    flex: 1;
+    background: #1d9bf0;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14.5px;
+    padding: 10px 0;
+    border-radius: 24px;
+    transition: background .15s ease;
+}
+
+.tweet-form-submit:hover {
+    background: #1a8cd8;
+}
+
+.tweet-form-back {
+    color: #8a96a3;
+    font-size: 13.5px;
+    text-decoration: none;
+    align-self: center;
+}
+
+.tweet-form-back:hover {
+    color: #c7ccd1;
+    text-decoration: underline;
+}
+
+.profile-edit-input {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14.5px;
+    padding: 10px 12px;
+}
+
+.profile-edit-input:focus {
+    outline: none;
+    border-color: #1d9bf0;
+    box-shadow: 0 0 0 2px rgba(29, 155, 240, 0.25);
+}
+
+.delete-confirm-text {
+    color: #8a96a3;
+    font-size: 13.5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.delete-confirm-btn {
+    background: #dc3545;
+}
+
+.delete-confirm-btn:hover {
+    background: #c82333;
+}

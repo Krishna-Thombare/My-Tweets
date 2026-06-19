@@ -1,0 +1,211 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Tweets
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tweet/css/tweet_list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="tweets-page">
+
+    <div class="panel-row">
+
+        <!-- Left Side -->
+        <div class="left-panel">
+            {% if user.is_authenticated %}
+                <h3 class="panel-heading">Your Tweets</h3>
+            {% else %}
+                <h2 class="text-center title">
+                    <img src="/media/logo.png" alt="Logo">
+                    <br>
+                    Welcome to MyTweets!
+                </h2>
+            {% endif %}
+            <div class="left-scroll">
+
+                {% if user.is_authenticated %}
+
+                    {% if user_tweets %}
+                        {% for tweet in user_tweets %}
+                            <div class="mini-tweet-card"
+                                onclick="openTweetModal({{ tweet.id }})"
+                                data-id="{{ tweet.id }}"
+                                data-user="{{ tweet.user.username }}"
+                                data-handle="{% if tweet.user.profile %}{{ tweet.user.profile.handle }}{% endif %}"
+                                data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                                data-date="{{ tweet.created_at }}"
+                                data-text="{{ tweet.text }}"
+                                data-img="{% if tweet.photo %}{{ tweet.photo.url }}{% elif tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                                data-tweet-has-photo="{% if tweet.photo %}1{% else %}0{% endif %}"
+                                data-owner="{% if tweet.user == user %}1{% else %}0{% endif %}"
+                                data-edit-url="{% if tweet.user == user %}{% url 'tweet_edit' tweet.id %}{% endif %}"
+                                data-delete-url="{% if tweet.user == user %}{% url 'tweet_delete' tweet.id %}{% endif %}">
+                                <div class="mini-tweet-text-block">
+                                    <small class="mini-tweet-date">{{ tweet.created_at }}</small>
+                                    <p class="mini-tweet-text">{{ tweet.text }}</p>
+                                </div>
+                                <div class="mini-tweet-img-wrap">
+                                    {% if tweet.photo %}
+                                        <img src="{{ tweet.photo.url }}" alt="Photo">
+                                    {% else %}
+                                        {% if tweet.user.profile.photo %}
+                                            <img src="{{ tweet.user.profile.photo.url }}" alt="Profile photo">
+                                        {% else %}
+                                            <img src="/media/photos/default_profile.png" alt="Default photo">
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <img src="{% static 'tweet/icons/message-circle.svg' %}" class="empty-state-icon" alt="">
+                            <p class="empty-state-title">No tweets yet</p>
+                            <p class="empty-state-subtext">Share your first thought with the world.</p>
+                        </div>
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="empty-state">
+                        <img src="{% static 'tweet/icons/log-in.svg' %}" class="empty-state-icon" alt="">
+                        <p class="empty-state-title">You're not logged in</p>
+                        <p class="empty-state-subtext">Log in to view and manage your posts. New here? Register yourself!</p>
+                        <div class="empty-state-actions">
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Login</a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-light btn-sm">Register</a>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="create-tweet-btn-wrap">
+                    <a href="#" class="btn btn-primary btn-sm" id="newTweetBtn" data-create-url="{% url 'tweet_create' %}">
+                        New Tweet
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <!-- Divider -->
+        <div class="vertical-divider"></div>
+
+        <!-- Right Side -->
+        <div class="right-panel">
+
+            <div class="right-panel-header">
+                <h1>Recent Tweets</h1>
+                <form action="{% url 'search_tweets' %}" method="GET" class="search-form">
+                    <input
+                        type="text"
+                        name="q" required
+                        class="form-control form-control-sm"
+                        placeholder="Search tweets..."
+                        aria-label="Search">
+                    <button class="btn btn-primary btn-sm" type="submit">
+                        Search
+                    </button>
+                </form>
+            </div>
+
+            <div class="right-scroll">
+                <div class="tweet-grid">
+
+                    {% for tweet in all_tweets %}
+
+                    <div class="grid-card"
+                        onclick="openTweetModal({{ tweet.id }})"
+                        data-id="{{ tweet.id }}"
+                        data-user="{{ tweet.user.username }}"
+                        data-handle="{% if tweet.user.profile %}{{ tweet.user.profile.handle }}{% endif %}"
+                        data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                        data-date="{{ tweet.created_at }}"
+                        data-text="{{ tweet.text }}"
+                        data-img="{% if tweet.photo %}{{ tweet.photo.url }}{% elif tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                        data-tweet-has-photo="{% if tweet.photo %}1{% else %}0{% endif %}"
+                        data-owner="{% if tweet.user == user %}1{% else %}0{% endif %}"
+                        data-edit-url="{% if tweet.user == user %}{% url 'tweet_edit' tweet.id %}{% endif %}"
+                        data-delete-url="{% if tweet.user == user %}{% url 'tweet_delete' tweet.id %}{% endif %}">
+
+                        {% if tweet.photo %}
+                            <img src="{{ tweet.photo.url }}" class="grid-card-img" alt="Photo">
+                        {% else %}
+                            <div class="grid-card-img grid-card-profile-bg">
+                                {% if tweet.user.profile.photo %}
+                                    <img src="{{ tweet.user.profile.photo.url }}" class="grid-card-profile-circle" alt="Profile photo">
+                                {% else %}
+                                    <img src="/media/photos/default_profile.png" class="grid-card-profile-circle" alt="Default profile photo">
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        <div class="grid-card-body">
+                            <p class="grid-card-user">
+                                {% if tweet.user.profile.handle %}
+                                    <a href="{% url 'profile' tweet.user.profile.handle %}" class="profile-link card-user-link" onclick="event.stopPropagation();">
+                                        {% if tweet.user.profile.photo %}
+                                            <img src="{{ tweet.user.profile.photo.url }}" class="card-avatar" alt="">
+                                        {% else %}
+                                            <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
+                                        {% endif %}
+                                        <span class="card-username-text">{{ tweet.user.username }}{% if tweet.user.profile %} <span class="grid-card-handle">@{{ tweet.user.profile.handle }}</span>{% endif %}</span>
+                                    </a>
+                                {% else %}
+                                    <span class="card-user-link">
+                                        <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
+                                        <span class="card-username-text">{{ tweet.user.username }}</span>
+                                    </span>
+                                {% endif %}
+                            </p>
+                            <small class="grid-card-date">{{ tweet.created_at }}</small>
+                            <p class="grid-card-text">{{ tweet.text }}</p>
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal (single shared instance, populated via JS) -->
+<div class="tweet-modal-overlay" id="tweetModalOverlay" onclick="closeTweetModalOnOverlay(event)">
+    <div class="tweet-modal-box">
+        <button class="tweet-modal-close" onclick="closeTweetModal()">&times;</button>
+        <img class="tweet-modal-img" id="modalImg" src="" alt="Tweet photo">
+        <div class="tweet-modal-content">
+            <p class="tweet-modal-user" id="modalUser"></p>
+            <small class="tweet-modal-date" id="modalDate"></small>
+            <p class="tweet-modal-text" id="modalText"></p>
+            <div class="tweet-modal-actions" id="modalActions"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Tweet Create/Edit Form Modal -->
+<div class="form-modal-overlay" id="formModalOverlay" onclick="closeFormModalOnOverlay(event)">
+    <div class="form-modal-box">
+        <button class="form-modal-close" onclick="closeFormModal()">&times;</button>
+        <iframe id="formModalIframe" src="" frameborder="0"></iframe>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'tweet/js/tweet_list.js' %}"></script>
+{% endblock %}

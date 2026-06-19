@@ -1,0 +1,113 @@
+.register-page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.register-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 14px;
+    padding: 28px 26px;
+}
+
+.register-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.register-group {
+    margin-bottom: 18px;
+}
+
+.register-label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #c7ccd1;
+    margin-bottom: 6px;
+}
+
+.register-input {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 14.5px;
+    padding: 10px 12px;
+}
+
+.register-input:focus {
+    outline: none;
+    border-color: #1d9bf0;
+    box-shadow: 0 0 0 2px rgba(29, 155, 240, 0.25);
+}
+
+.register-file {
+    width: 100%;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    color: #c7ccd1;
+    font-size: 13.5px;
+    padding: 8px 10px;
+}
+
+.register-row {
+    display: flex;
+    gap: 12px;
+}
+
+.register-row .register-group {
+    flex: 1;
+}
+
+.register-help {
+    font-size: 11.5px;
+    color: #8a96a3;
+    margin-top: 4px;
+}
+
+.register-error {
+    color: #ff6b6b;
+    font-size: 12.5px;
+    margin-top: 4px;
+}
+
+.register-submit {
+    width: 100%;
+    background: #1d9bf0;
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14.5px;
+    padding: 11px 0;
+    border-radius: 24px;
+    margin-top: 8px;
+    transition: background .15s ease;
+}
+
+.register-submit:hover {
+    background: #1a8cd8;
+}
+
+.register-footer {
+    text-align: center;
+    font-size: 13.5px;
+    color: #8a96a3;
+    margin-top: 18px;
+}
+
+.register-footer a {
+    color: #1d9bf0;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-footer a:hover {
+    text-decoration: underline;
+}

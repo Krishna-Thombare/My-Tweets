@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'tweet/css/tweet_form.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="tweet-form-page">
+    <div class="tweet-form-card">
+
+        <h2 class="tweet-form-title">Edit Profile</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="tweet-form-group">
+                <label class="tweet-form-label" for="{{ form.photo.id_for_label }}">Profile Photo</label>
+                {{ form.photo }}
+                {% if form.instance.photo %}
+                    <img src="{{ form.instance.photo.url }}" class="tweet-form-current-img" alt="Current photo">
+                {% endif %}
+                {% for error in form.photo.errors %}
+                    <div class="tweet-form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="tweet-form-group">
+                <label class="tweet-form-label" for="{{ form.city.id_for_label }}">City</label>
+                {{ form.city }}
+                {% for error in form.city.errors %}
+                    <div class="tweet-form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="tweet-form-group">
+                <label class="tweet-form-label" for="{{ form.country.id_for_label }}">Country</label>
+                {{ form.country }}
+                {% for error in form.country.errors %}
+                    <div class="tweet-form-error">{{ error }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="tweet-form-actions">
+                <button class="tweet-form-submit" type="submit">Save Changes</button>
+                {% if not embed %}
+                    <a href="{% url 'profile' form.instance.handle %}" class="tweet-form-back">Cancel</a>
+                {% endif %}
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

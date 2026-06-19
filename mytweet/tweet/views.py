@@ -1,8 +1,12 @@
 from django.shortcuts import render
-from .models import Tweet
-from .forms import TweetForm
+from .models import Tweet, Profile
+from .forms import TweetForm, UserRegistrationForm, ProfileEditForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from django.db.models import Q
+import re
+from django.utils.safestring import mark_safe
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import HttpResponse
 
@@ -69,7 +73,83 @@ def tweet_delete(request, tweet_id):
         'embed': request.GET.get('embed') == '1',
     })
 
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password1'])   # Set the password for the user using the cleaned data from the form
+            user.save()   # Save the user to the database
 
+            Profile.objects.create(
+                user=user,
+                handle=form.cleaned_data['handle'],
+                photo=form.cleaned_data.get('photo'),
+                city=form.cleaned_data.get('city', ''),
+                country=form.cleaned_data.get('country', ''),
+            )
+
+            login(request, user)   # Log the user in after successful registration
+            return redirect('tweet_list')   # Redirect the user to the tweet list page after successful registration
+    else:
+        form = UserRegistrationForm() 
+
+    return render(request, 'registration/register.html', {'form': form})
+
+@login_required
+def search_tweets(request):
+    query = request.GET.get('q', "")
+    tweets = []
+
+    if query:
+        tweets = Tweet.objects.filter(   # Filter tweets based on the search query
+            Q(text__icontains=query) | 
+            Q(user__username__icontains=query) |
+            Q(photo__icontains=query)).order_by('-created_at')
+        
+        for tweet in tweets:
+            highlighted = re.sub(
+                f'({re.escape(query)})',
+                r'<mark>\1</mark>',
+                tweet.text,
+                flags=re.IGNORECASE
+            )
+            tweet.highlighted_text = mark_safe(highlighted)
+
+    return render(request, 'search.html', {'tweets': tweets, 'query': query})
+
+@login_required
+def profile(request, handle):
+    user_profile = get_object_or_404(Profile, handle=handle)
+    profile_user = user_profile.user
+    profile_tweets = Tweet.objects.filter(user=profile_user).order_by('-created_at')
+
+    return render(request, 'profile.html', {
+        'profile_user': profile_user,
+        'user_profile': user_profile,
+        'profile_tweets': profile_tweets,
+    })
+
+@login_required
+@xframe_options_exempt
+def profile_edit(request):
+    user_profile = get_object_or_404(Profile, user=request.user)
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, request.FILES, instance=user_profile)
+        if form.is_valid():
+            form.save()
+            if request.GET.get('embed') == '1':
+                return HttpResponse('<script>window.parent.location.reload();</script>')
+            return redirect('profile', handle=user_profile.handle)
+    else:
+        form = ProfileEditForm(instance=user_profile)
+    return render(request, 'profile_edit.html', {
+        'form': form,
+        'embed': request.GET.get('embed') == '1',
+    })
+
+def aboutus(request):
+    return render(request, 'aboutus.html')
     
 
 
