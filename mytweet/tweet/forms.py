@@ -1,6 +1,6 @@
 from django import forms
 from .models import Tweet, Profile, CustomUser
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 # Default Syntax
 class TweetForm(forms.ModelForm):
@@ -49,4 +49,31 @@ class UserRegistrationForm(UserCreationForm):
             'username': forms.TextInput(attrs={'class': 'register-input'}),
         }
 
-    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].widget.attrs.update({'class': 'register-input'})
+        self.fields['password2'].widget.attrs.update({'class': 'register-input'})
+
+    def clean_handle(self):
+        handle = self.cleaned_data['handle'].lstrip('@').strip()
+        if len(handle) == 0:
+            raise forms.ValidationError('Handle cannot be empty.')
+        if Profile.objects.filter(handle=handle).exists():
+            raise forms.ValidationError('This handle is already taken.')
+        return handle
+
+class StyledAuthenticationForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'login-input'})
+        self.fields['password'].widget.attrs.update({'class': 'login-input'})
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['photo', 'city', 'country']
+        widgets = {
+            'photo': forms.ClearableFileInput(attrs={'class': 'tweet-form-file'}),
+            'city': forms.TextInput(attrs={'class': 'profile-edit-input', 'placeholder': 'e.g. Pune'}),
+            'country': forms.TextInput(attrs={'class': 'profile-edit-input', 'placeholder': 'e.g. India'}),
+        }
