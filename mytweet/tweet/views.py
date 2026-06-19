@@ -55,6 +55,20 @@ def tweet_edit(request, tweet_id):
         'embed': request.GET.get('embed') == '1',
     })
     
+@login_required
+@xframe_options_exempt
+def tweet_delete(request, tweet_id):
+    tweet = get_object_or_404(Tweet, pk=tweet_id, user=request.user)
+    if request.method == "POST":
+        tweet.delete()
+        if request.GET.get('embed') == '1':
+            return HttpResponse('<script>window.parent.location.reload();</script>')
+        return redirect('tweet_list')
+    return render(request, 'tweet_confirm_delete.html', {
+        'tweet': tweet,
+        'embed': request.GET.get('embed') == '1',
+    })
+
 
     
 
