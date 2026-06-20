@@ -96,6 +96,7 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form})
 
+# Search tweets (keywords)
 @login_required
 def search_tweets(request):
     query = request.GET.get('q', "")
@@ -118,6 +119,7 @@ def search_tweets(request):
 
     return render(request, 'search.html', {'tweets': tweets, 'query': query})
 
+# Profile page
 @login_required
 def profile(request, handle):
     user_profile = get_object_or_404(Profile, handle=handle)
@@ -148,6 +150,7 @@ def profile_edit(request):
         'embed': request.GET.get('embed') == '1',
     })
 
+# About us page
 def aboutus(request):
     return render(request, 'aboutus.html')
     
