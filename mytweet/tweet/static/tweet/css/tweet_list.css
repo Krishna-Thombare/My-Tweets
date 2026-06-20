@@ -53,7 +53,11 @@ body {
     flex: 0 1 336px;
     overflow-y: auto;
     max-height: 336px;
-    padding-right: 6px;
+    padding: 8.5px;
+    padding-right: 7px;
+    background: #000000;
+    border: 1px solid #333333;
+    border-radius: 12px;
 }
 
 .left-scroll::-webkit-scrollbar,
@@ -201,7 +205,7 @@ body {
 
 .tweet-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 13px;
 }
 
@@ -221,7 +225,7 @@ body {
     transition: box-shadow .15s ease, transform .15s ease;
     display: flex;
     flex-direction: column;
-    height: 270px;
+    height: 320px;
 }
 
 .grid-card:hover {

@@ -3,6 +3,7 @@ body {
 }
 
 .navbar {
+    position: sticky;
     background-color: #000000;
     border-bottom: 1.3px solid #444444;
 }
