@@ -61,55 +61,55 @@
                 {% if profile_tweets %}
                     <div class="tweet-grid">
                         {% for tweet in profile_tweets %}
-                        <div class="grid-card"
-                            onclick="openTweetModal({{ tweet.id }})"
-                            data-id="{{ tweet.id }}"
-                            data-user="{{ tweet.user.username }}"
-                            data-handle="{% if tweet.user.profile %}{{ tweet.user.profile.handle }}{% endif %}"
-                            data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
-                            data-date="{{ tweet.created_at }}"
-                            data-text="{{ tweet.text }}"
-                            data-img="{% if tweet.photo %}{{ tweet.photo.url }}{% elif tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
-                            data-tweet-has-photo="{% if tweet.photo %}1{% else %}0{% endif %}"
-                            data-owner="{% if tweet.user == user %}1{% else %}0{% endif %}"
-                            data-edit-url="{% if tweet.user == user %}{% url 'tweet_edit' tweet.id %}{% endif %}"
-                            data-delete-url="{% if tweet.user == user %}{% url 'tweet_delete' tweet.id %}{% endif %}">
+                            <div class="grid-card"
+                                onclick="openTweetModal({{ tweet.id }})"
+                                data-id="{{ tweet.id }}"
+                                data-user="{{ tweet.user.username }}"
+                                data-handle="{% if tweet.user.profile %}{{ tweet.user.profile.handle }}{% endif %}"
+                                data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                                data-date="{{ tweet.created_at }}"
+                                data-text="{{ tweet.text }}"
+                                data-img="{% if tweet.photo %}{{ tweet.photo.url }}{% elif tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                                data-tweet-has-photo="{% if tweet.photo %}1{% else %}0{% endif %}"
+                                data-owner="{% if tweet.user == user %}1{% else %}0{% endif %}"
+                                data-edit-url="{% if tweet.user == user %}{% url 'tweet_edit' tweet.id %}{% endif %}"
+                                data-delete-url="{% if tweet.user == user %}{% url 'tweet_delete' tweet.id %}{% endif %}">
 
-                            {% if tweet.photo %}
-                                <img src="{{ tweet.photo.url }}" class="grid-card-img" alt="Photo">
-                            {% else %}
-                                <div class="grid-card-img grid-card-profile-bg">
-                                    {% if tweet.user.profile.photo %}
-                                        <img src="{{ tweet.user.profile.photo.url }}" class="grid-card-profile-circle" alt="Profile photo">
-                                    {% else %}
-                                        <img src="/media/photos/default_profile.png" class="grid-card-profile-circle" alt="Default profile photo">
-                                    {% endif %}
-                                </div>
-                            {% endif %}
+                                {% if tweet.photo %}
+                                    <img src="{{ tweet.photo.url }}" class="grid-card-img" alt="Photo">
+                                {% else %}
+                                    <div class="grid-card-img grid-card-profile-bg">
+                                        {% if tweet.user.profile.photo %}
+                                            <img src="{{ tweet.user.profile.photo.url }}" class="grid-card-profile-circle" alt="Profile photo">
+                                        {% else %}
+                                            <img src="/media/photos/default_profile.png" class="grid-card-profile-circle" alt="Default profile photo">
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
 
-                            <div class="grid-card-body">
-                                <p class="grid-card-user">
-                                    {% if tweet.user.profile.handle %}
-                                        <a href="{% url 'profile' tweet.user.profile.handle %}" class="profile-link card-user-link" onclick="event.stopPropagation();">
-                                            {% if tweet.user.profile.photo %}
-                                                <img src="{{ tweet.user.profile.photo.url }}" class="card-avatar" alt="">
-                                            {% else %}
+                                <div class="grid-card-body">
+                                    <p class="grid-card-user">
+                                        {% if tweet.user.profile.handle %}
+                                            <a href="{% url 'profile' tweet.user.profile.handle %}" class="profile-link card-user-link" onclick="event.stopPropagation();">
+                                                {% if tweet.user.profile.photo %}
+                                                    <img src="{{ tweet.user.profile.photo.url }}" class="card-avatar" alt="">
+                                                {% else %}
+                                                    <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
+                                                {% endif %}
+                                                <span class="card-username-text">{{ tweet.user.username }}{% if tweet.user.profile %} <span class="grid-card-handle">@{{ tweet.user.profile.handle }}</span>{% endif %}</span>
+                                            </a>
+                                        {% else %}
+                                            <span class="card-user-link">
                                                 <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
-                                            {% endif %}
-                                            <span class="card-username-text">{{ tweet.user.username }}{% if tweet.user.profile %} <span class="grid-card-handle">@{{ tweet.user.profile.handle }}</span>{% endif %}</span>
-                                        </a>
-                                    {% else %}
-                                        <span class="card-user-link">
-                                            <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
-                                            <span class="card-username-text">{{ tweet.user.username }}</span>
-                                        </span>
-                                    {% endif %}
-                                </p>
-                                <small class="grid-card-date">{{ tweet.created_at }}</small>
-                                <p class="grid-card-text">{{ tweet.text }}</p>
-                            </div>
+                                                <span class="card-username-text">{{ tweet.user.username }}</span>
+                                            </span>
+                                        {% endif %}
+                                    </p>
+                                    <small class="grid-card-date">{{ tweet.created_at }}</small>
+                                    <p class="grid-card-text">{{ tweet.text }}</p>
+                                </div>
 
-                        </div>
+                            </div>
                         {% endfor %}
                     </div>
                 {% else %}
