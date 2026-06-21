@@ -149,7 +149,7 @@ body {
     flex: 0 0 1.3px;
     background: #444444;
     margin: 0 20px;
-    height: 700px;
+    height: stretch;
 }
 
 /* RIGHT PANEL */
@@ -209,12 +209,12 @@ body {
     gap: 13px;
 }
 
-@media (max-width: 992px) {
+/* @media (max-width: 992px) {
     .tweet-grid { grid-template-columns: repeat(2, 1fr); }
     .panel-row { flex-direction: column; }
     .left-panel { flex: none; padding-right: 0; margin-bottom: 20px; }
     .vertical-divider { display: none; }
-}
+} */
 
 .grid-card {
     background: #000000;
@@ -514,3 +514,157 @@ body {
     object-fit: cover;
     flex-shrink: 0;
 }
+
+/* FAB button - hidden on desktop */
+.mobile-fab {
+    display: none;
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #1d9bf0;
+    color: #ffffff;
+    font-size: 30px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    cursor: pointer;
+    border: none;
+    z-index: 999;
+    text-decoration: none;
+    transition: background .15s ease, transform .15s ease;
+    line-height: 1;
+}
+
+.mobile-fab:hover,
+.mobile-fab:focus {
+    background: #1a8cd8;
+    transform: scale(1.08);
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+
+    /* Show FAB and hide desktop New Tweet button */
+    .mobile-fab {
+        display: flex;
+    }
+
+    .create-tweet-btn-wrap {
+        display: none;
+    }
+
+    /* Hide left panel */
+    .left-panel {
+        display: none !important;
+    }
+
+    .vertical-divider {
+        display: none !important;
+    }
+
+    .tweets-page {
+        padding: 10px 8px;
+        border-radius: 0;
+    }
+
+    .panel-row {
+        flex-direction: column;
+    }
+
+    .right-panel {
+        width: 100%;
+        flex: 1;
+    }
+
+    /* Header: vertical search in center */
+    .right-panel-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+        grid-template-columns: unset;
+    }
+
+    .right-panel-header h1 {
+        font-size: 1.4rem;
+        text-align: center;
+        white-space: normal;
+        grid-column: unset;
+    }
+
+    .search-form {
+        width: 100%;
+        grid-column: unset;
+        justify-self: unset;
+    }
+
+    .search-form input {
+        flex: 1;
+        width: 100%;
+    }
+
+    .right-scroll {
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+    }
+
+    .tweet-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .grid-card {
+        height: auto;
+        min-height: unset;
+    }
+
+    .grid-card-img {
+        aspect-ratio: 16 / 7;
+    }
+
+    .grid-card-profile-bg {
+        aspect-ratio: 16 / 7;
+    }
+
+    .grid-card-body {
+        padding: 10px 12px 12px;
+    }
+
+    .grid-card-text {
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        max-height: calc(1.35em * 3);
+    }
+
+    /* Modals full screen on mobile */
+    .tweet-modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .tweet-modal-box {
+        max-width: 100%;
+        width: 100%;
+        max-height: 92vh;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .form-modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .form-modal-box {
+        max-width: 100%;
+        width: 100%;
+        height: 92vh;
+        border-radius: 20px 20px 0 0;
+    }
+
+}
+
