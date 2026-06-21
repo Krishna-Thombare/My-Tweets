@@ -70,3 +70,25 @@
     padding: 0 3px;
     border-radius: 3px;
 }
+
+@media (max-width: 768px) {
+
+    .search-page {
+        padding: 12px 10px;
+    }
+
+    .search-result-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-result-img {
+        width: 100%;
+        height: 160px;
+    }
+
+    .search-result-img-placeholder {
+        display: none;
+    }
+
+}
