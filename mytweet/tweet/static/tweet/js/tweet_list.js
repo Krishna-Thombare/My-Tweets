@@ -88,3 +88,11 @@ if (profileEditBtn) {
         openFormModal(this.dataset.createUrl + '?embed=1');
     });
 }
+
+const mobileFabBtn = document.getElementById('mobileFabBtn');
+if (mobileFabBtn) {
+    mobileFabBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        openFormModal(this.dataset.createUrl + '?embed=1');
+    });
+}
