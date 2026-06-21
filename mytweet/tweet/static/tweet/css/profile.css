@@ -54,3 +54,99 @@
     padding: 7px 22px;
     font-size: 13.5px;
 }
+
+@media (max-width: 768px) {
+
+    .tweets-page {
+        padding: 10px 8px;
+        border-radius: 0;
+    }
+
+    .panel-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .vertical-divider {
+        display: none !important;
+    }
+
+    .profile-left-panel {
+        flex: none;
+        width: 100%;
+        min-height: unset;
+        margin-top: 0;
+        padding: 20px 16px;
+        border-radius: 10px;
+    }
+
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-info-name {
+        font-size: 1rem;
+        margin-bottom: 2px;
+    }
+
+    .profile-info-handle {
+        font-size: 13px;
+        margin-bottom: 8px;
+    }
+
+    .profile-info-location,
+    .profile-info-joined {
+        font-size: 12px;
+    }
+
+    .right-panel {
+        width: 100%;
+    }
+
+    .right-panel-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        grid-template-columns: unset;
+    }
+
+    .right-panel-header h1 {
+        font-size: 1.1rem;
+        white-space: normal;
+        word-break: break-word;
+        text-align: center;
+        grid-column: unset;
+    }
+
+    .right-scroll {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    .tweet-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .grid-card {
+        height: auto;
+        min-height: unset;
+    }
+
+    .grid-card-img {
+        aspect-ratio: 16 / 7;
+    }
+
+    .grid-card-profile-bg {
+        aspect-ratio: 16 / 7;
+    }
+
+    .grid-card-body {
+        padding: 10px 12px 12px;
+    }
+
+}
+
+
