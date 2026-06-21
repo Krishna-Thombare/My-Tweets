@@ -204,6 +204,10 @@ Tweets
     </div>
 </div>
 
+{% if user.is_authenticated %}
+    <a href="#" class="mobile-fab" id="mobileFabBtn" data-create-url="{% url 'tweet_create' %}">+</a>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
