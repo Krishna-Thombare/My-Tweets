@@ -111,3 +111,20 @@
 .register-footer a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+
+    .register-page {
+        padding: 20px 12px;
+    }
+
+    .register-card {
+        padding: 20px 16px;
+    }
+
+    .register-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+}

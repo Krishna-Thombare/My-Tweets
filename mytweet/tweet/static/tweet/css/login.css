@@ -86,3 +86,15 @@
 .login-footer a:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+
+    .login-page {
+        padding: 30px 12px;
+    }
+
+    .login-card {
+        padding: 20px 16px;
+    }
+
+}
