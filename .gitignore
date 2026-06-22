@@ -9,6 +9,7 @@ mytweet/db.sqlite3.backup
 data_backup.json
 
 media/
+staticfiles/
 
 .vscode/
 *.log
