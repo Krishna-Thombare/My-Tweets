@@ -94,11 +94,20 @@ DATABASES = {
 
 RENDER_CA_PATH = '/opt/render/project/src/mytweet/ca.pem'
 
-DATABASES["default"]["OPTIONS"] = {
-    "ssl": {
-        "ca": RENDER_CA_PATH if os.path.exists(RENDER_CA_PATH) else os.environ.get('DB_SSL_CA_PATH', 'ca.pem'),
+if os.environ.get('RENDER'):
+    ssl_options = {
+        "ssl": {
+            "ssl_mode": "REQUIRED",
+        }
     }
-}
+else:
+    ssl_options = {
+        "ssl": {
+            "ca": os.environ.get('DB_SSL_CA_PATH', 'ca.pem'),
+        }
+    }
+
+DATABASES["default"]["OPTIONS"] = ssl_options
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
