@@ -92,9 +92,11 @@ DATABASES = {
     )
 }
 
+RENDER_CA_PATH = '/opt/render/project/src/mytweet/ca.pem'
+
 DATABASES["default"]["OPTIONS"] = {
     "ssl": {
-        "ca": os.environ.get('DB_SSL_CA_PATH', 'ca.pem'),
+        "ca": RENDER_CA_PATH if os.path.exists(RENDER_CA_PATH) else os.environ.get('DB_SSL_CA_PATH', 'ca.pem'),
     }
 }
 
