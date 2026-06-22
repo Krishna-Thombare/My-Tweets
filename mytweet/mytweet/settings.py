@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -84,13 +85,17 @@ WSGI_APPLICATION = 'mytweet.wsgi.application'
 
 # MySQL Database
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': os.getenv('DB_HOST'),
-        'PORT': os.getenv('DB_PORT'),
+    'default': dj_database_url.parse(
+        os.getenv('DATABASE_URL'),
+        engine='django.db.backends.mysql'
+    )
+}
+
+SETTINGS_DIR = Path(__file__).resolve().parent
+
+DATABASES["default"]["OPTIONS"] = {
+    "ssl": {
+        "ca": str(SETTINGS_DIR / "ca.pem"),
     }
 }
 
