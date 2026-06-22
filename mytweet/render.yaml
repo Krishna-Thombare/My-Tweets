@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: mytweets
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mytweet.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+      - key: DB_SSL_CA_PATH
+        value: /etc/ssl/certs/ca-certificates.crt
+      - key: PYTHONIOENCODING
+        value: utf-8
