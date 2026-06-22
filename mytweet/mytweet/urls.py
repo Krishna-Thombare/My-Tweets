@@ -20,10 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from tweet.forms import StyledAuthenticationForm
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mytweets/', include('tweet.urls')),
+    path('', RedirectView.as_view(url='/mytweets/', permanent=False)),
     path('accounts/login/', auth_views.LoginView.as_view(authentication_form=StyledAuthenticationForm), name='login'),
     path('accounts/', include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
