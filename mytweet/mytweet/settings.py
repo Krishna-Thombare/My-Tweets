@@ -150,7 +150,6 @@ STATIC_URL = '/static/'
 static_dir = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [static_dir] if os.path.exists(static_dir) else []
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 LOGIN_URL = '/accounts/login'
 
@@ -171,6 +170,6 @@ STORAGES = {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
