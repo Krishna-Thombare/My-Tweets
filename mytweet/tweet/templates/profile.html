@@ -22,7 +22,7 @@
             {% if user_profile.photo %}
                 <img src="{{ user_profile.photo.url }}" class="profile-avatar" alt="Profile photo">
             {% else %}
-                <img src="/media/photos/default_profile.png" class="profile-avatar" alt="Default profile photo">
+                <img src="{% static 'images/default_profile.png' %}" class="profile-avatar" alt="Default profile photo">
             {% endif %}
 
             <p class="profile-info-name">{{ profile_user.username }}</p>
@@ -82,7 +82,7 @@
                                         {% if tweet.user.profile.photo %}
                                             <img src="{{ tweet.user.profile.photo.url }}" class="grid-card-profile-circle" alt="Profile photo">
                                         {% else %}
-                                            <img src="/media/photos/default_profile.png" class="grid-card-profile-circle" alt="Default profile photo">
+                                            <img src="{% static 'images/default_profile.png' %}" class="grid-card-profile-circle" alt="Default profile photo">
                                         {% endif %}
                                     </div>
                                 {% endif %}
@@ -94,13 +94,13 @@
                                                 {% if tweet.user.profile.photo %}
                                                     <img src="{{ tweet.user.profile.photo.url }}" class="card-avatar" alt="">
                                                 {% else %}
-                                                    <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
+                                                    <img src="{% static 'images/default_profile.png' %}" class="card-avatar" alt="">
                                                 {% endif %}
                                                 <span class="card-username-text">{{ tweet.user.username }}{% if tweet.user.profile %} <span class="grid-card-handle">@{{ tweet.user.profile.handle }}</span>{% endif %}</span>
                                             </a>
                                         {% else %}
                                             <span class="card-user-link">
-                                                <img src="/media/photos/default_profile.png" class="card-avatar" alt="">
+                                                <img src="{% static 'images/default_profile.png' %}" class="card-avatar" alt="">
                                                 <span class="card-username-text">{{ tweet.user.username }}</span>
                                             </span>
                                         {% endif %}
