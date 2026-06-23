@@ -168,3 +168,8 @@ CLOUDINARY_STORAGE = {
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# Temp debug
+import sys
+print(f"CLOUDINARY CONFIG: {CLOUDINARY_STORAGE}", file=sys.stderr)
+print(f"DEFAULT_FILE_STORAGE: {DEFAULT_FILE_STORAGE}", file=sys.stderr)
