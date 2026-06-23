@@ -14,8 +14,9 @@ staticfiles/
 .vscode/
 *.log
 
+ca.pem
+
 questions.txt
 notes.md
 workflow.md
-
-ca.pem
+features.txt
