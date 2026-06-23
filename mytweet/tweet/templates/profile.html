@@ -66,7 +66,7 @@
                                 data-id="{{ tweet.id }}"
                                 data-user="{{ tweet.user.username }}"
                                 data-handle="{% if tweet.user.profile %}{{ tweet.user.profile.handle }}{% endif %}"
-                                data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}/media/photos/default_profile.png{% endif %}"
+                                data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
                                 data-date="{{ tweet.created_at }}"
                                 data-text="{{ tweet.text }}"
                                 data-img="{% if tweet.photo %}{{ tweet.photo.url }}{% elif tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
