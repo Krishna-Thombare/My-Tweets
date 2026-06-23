@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'cloudinary',
     'tweet',
 ]
@@ -151,7 +151,7 @@ STATIC_URL = '/static/'
 static_dir = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [static_dir] if os.path.exists(static_dir) else []
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 LOGIN_URL = '/accounts/login'
 
