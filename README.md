@@ -31,16 +31,16 @@ Cloudinary for cloud-based media storage and Aiven Cloud for scalable MySQL data
 https://mytweets-5xu8.onrender.com
 
 ## 📸 **Screenshots:**
-### Image 1
+### Home Page
 ![Image 1](screenshots/image-1.png)
 
-### Image 2
+### View Tweet
 ![Image 2](screenshots/image-2.png)
 
-### Image 3
+### Search Tweets
 ![Image 3](screenshots/image-3.png)
 
-### Image 4
+### Profile Page
 ![Image 3](screenshots/image-4.png)
 
 ## 🤝 **Contributing:**
