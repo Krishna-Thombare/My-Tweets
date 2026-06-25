@@ -12,6 +12,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 
+# Home page listing all recent tweets
 def tweet_list(request): 
     all_tweets = Tweet.objects.all().order_by('-created_at')
 
@@ -22,6 +23,7 @@ def tweet_list(request):
     
     return render(request, 'tweet_list.html', {'all_tweets': all_tweets, 'user_tweets': user_tweets})
 
+# Create new tweet
 @login_required   # This decorator ensures that only authenticated users can access the view. Else redirected to the login page.
 @xframe_options_exempt   # It allows the view to be embedded in an iframe, useful for the modal form functionality.
 def tweet_create(request):
@@ -41,6 +43,7 @@ def tweet_create(request):
         'embed': request.GET.get('embed') == '1',
     })
 
+# Edit tweet
 @login_required
 @xframe_options_exempt
 def tweet_edit(request, tweet_id):
@@ -58,7 +61,8 @@ def tweet_edit(request, tweet_id):
         'form': form,
         'embed': request.GET.get('embed') == '1',
     })
-    
+
+# Delete tweet
 @login_required
 @xframe_options_exempt
 def tweet_delete(request, tweet_id):
@@ -73,6 +77,7 @@ def tweet_delete(request, tweet_id):
         'embed': request.GET.get('embed') == '1',
     })
 
+# User registration
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST, request.FILES)
@@ -119,7 +124,7 @@ def search_tweets(request):
 
     return render(request, 'search.html', {'tweets': tweets, 'query': query})
 
-# Profile page
+# User profile page
 @login_required
 def profile(request, handle):
     user_profile = get_object_or_404(Profile, handle=handle)
@@ -132,6 +137,7 @@ def profile(request, handle):
         'profile_tweets': profile_tweets,
     })
 
+# Profile edit
 @login_required
 @xframe_options_exempt
 def profile_edit(request):
