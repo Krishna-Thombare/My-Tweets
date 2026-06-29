@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres', 
     'cloudinary_storage',
     'cloudinary',
     'tweet',
@@ -87,29 +88,37 @@ WSGI_APPLICATION = 'mytweet.wsgi.application'
 # }
 
 # MySQL Database
+# DATABASES = {
+#     'default': dj_database_url.parse(
+#         os.getenv('DATABASE_URL'),
+#         engine='django.db.backends.mysql'
+#     )
+# }
+
+# RENDER_CA_PATH = '/opt/render/project/src/mytweet/ca.pem'
+
+# if os.environ.get('RENDER'):
+#     ssl_options = {
+#         "ssl": {
+#             "ssl_mode": "REQUIRED",
+#         }
+#     }
+# else:
+#     ssl_options = {
+#         "ssl": {
+#             "ca": os.environ.get('DB_SSL_CA_PATH', 'ca.pem'),
+#         }
+#     }
+
+# DATABASES["default"]["OPTIONS"] = ssl_options
+
+# Postgres Database
 DATABASES = {
     'default': dj_database_url.parse(
-        os.getenv('DATABASE_URL'),
-        engine='django.db.backends.mysql'
+        os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
     )
 }
-
-RENDER_CA_PATH = '/opt/render/project/src/mytweet/ca.pem'
-
-if os.environ.get('RENDER'):
-    ssl_options = {
-        "ssl": {
-            "ssl_mode": "REQUIRED",
-        }
-    }
-else:
-    ssl_options = {
-        "ssl": {
-            "ca": os.environ.get('DB_SSL_CA_PATH', 'ca.pem'),
-        }
-    }
-
-DATABASES["default"]["OPTIONS"] = ssl_options
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
