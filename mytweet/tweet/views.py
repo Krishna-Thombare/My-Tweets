@@ -8,7 +8,7 @@ import re
 from django.utils.safestring import mark_safe
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import HttpResponse
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, SearchHeadline
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 # Create your views here.
 
@@ -108,8 +108,14 @@ def search_tweets(request):
 
     if query:
         search_query = SearchQuery(query, config='english', search_type='plain')
-        search_vector = SearchVector('text', config='english', weight='A') + SearchVector('user__username', config='english', weight='B')
 
+        # Tweet text (higher priority) and username (lower priority)
+        search_vector = (
+            SearchVector('text', config='english', weight='A') + 
+            SearchVector('user__username', config='english', weight='B')
+        )
+
+        # Split query into words to match any word (OR search)
         words = query.split()
         or_query = SearchQuery(' | '.join(words), config='english', search_type='raw') if len(words) > 1 else search_query
 
