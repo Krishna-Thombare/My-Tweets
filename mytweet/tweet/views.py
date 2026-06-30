@@ -4,7 +4,6 @@ from .forms import TweetForm, UserRegistrationForm, ProfileEditForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
-from django.db.models import Q
 import re
 from django.utils.safestring import mark_safe
 from django.views.decorators.clickjacking import xframe_options_exempt
@@ -108,16 +107,15 @@ def search_tweets(request):
     tweets = []
 
     if query:
-        search_query = SearchQuery(query)
-        search_vector = (
-            SearchVector('text', weight='A') +
-            SearchVector('user__username', weight='B') 
+        search_query = SearchQuery(query, config='english')
+        search_vector = SearchVector('text', config='english', weight='A') + SearchVector('user__username', config='english', weight='B')
+
+        tweets = list(
+            Tweet.objects.annotate(
+                rank=SearchRank(search_vector, search_query)
+            ).filter(rank__gt=0).order_by('-rank', '-created_at')
         )
 
-        tweets = Tweet.objects.annotate(
-            rank = SearchRank(search_vector, search_query)
-        ).filter(rank__gt=0).order_by('-rank', '-created_at')
-        
         for tweet in tweets:
             highlighted = re.sub(
                 f'({re.escape(query)})',
