@@ -7,6 +7,10 @@ __pycache__/
 db.sqlite3
 mytweet/db.sqlite3.backup
 data_backup.json
+mytweet/export_data.py
+mytweet/profiles_data.json
+mytweet/tweets_data.json
+mytweet/users_data.json
 
 media/
 staticfiles/
