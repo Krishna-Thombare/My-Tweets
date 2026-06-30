@@ -9,6 +9,7 @@ import re
 from django.utils.safestring import mark_safe
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import HttpResponse
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 # Create your views here.
 
@@ -101,16 +102,21 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form': form})
 
-# Search tweets (keywords)
+# Search tweets
 def search_tweets(request):
     query = request.GET.get('q', "")
     tweets = []
 
     if query:
-        tweets = Tweet.objects.filter(   # Filter tweets based on the search query
-            Q(text__icontains=query) | 
-            Q(user__username__icontains=query) |
-            Q(photo__icontains=query)).order_by('-created_at')
+        search_query = SearchQuery(query)
+        search_vector = (
+            SearchVector('text', weight='A') +
+            SearchVector('user__username', weight='B') 
+        )
+
+        tweets = Tweet.objects.annotate(
+            rank = SearchRank(search_vector, search_query)
+        ).filter(rank__gt=0).order_by('-rank', '-created_at')
         
         for tweet in tweets:
             highlighted = re.sub(
