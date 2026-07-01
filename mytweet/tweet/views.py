@@ -103,7 +103,7 @@ def register(request):
 
 # Search tweets
 def search_tweets(request):
-    query = request.GET.get('q', "")
+    query = request.GET.get('q', "").strip()
     tweets = []
 
     if query:
@@ -125,14 +125,12 @@ def search_tweets(request):
             ).filter(rank__gt=0).order_by('-rank', '-created_at')
         )
 
+        pattern = re.compile(re.escape(query), re.IGNORECASE)
+
         for tweet in tweets:
-            highlighted = re.sub(
-                f'({re.escape(query)})',
-                r'<mark>\1</mark>',
-                tweet.text,
-                flags=re.IGNORECASE
+            tweet.highlighted_text = mark_safe(
+                pattern.sub(r"<mark>\g<0></mark>", tweet.text)
             )
-            tweet.highlighted_text = mark_safe(highlighted)
 
     return render(request, 'search.html', {'tweets': tweets, 'query': query})
 
