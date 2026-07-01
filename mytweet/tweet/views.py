@@ -14,7 +14,7 @@ from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 # Home page listing all recent tweets
 def tweet_list(request): 
-    all_tweets = Tweet.objects.all().order_by('-created_at')
+    all_tweets = Tweet.objects.select_related('user', 'user__profile').order_by('-created_at')
 
     user_tweets = []
 
@@ -120,7 +120,7 @@ def search_tweets(request):
         or_query = SearchQuery(' | '.join(words), config='english', search_type='raw') if len(words) > 1 else search_query
 
         tweets = list(
-            Tweet.objects.annotate(
+            Tweet.objects.select_related('user', 'user__profile').annotate(
                 rank=SearchRank(search_vector, or_query)
             ).filter(rank__gt=0).order_by('-rank', '-created_at')
         )
@@ -140,7 +140,7 @@ def search_tweets(request):
 def profile(request, handle):
     user_profile = get_object_or_404(Profile, handle=handle)
     profile_user = user_profile.user
-    profile_tweets = Tweet.objects.filter(user=profile_user).order_by('-created_at')
+    profile_tweets = Tweet.objects.select_related('user', 'user__profile').filter(user=profile_user).order_by('-created_at')
 
     return render(request, 'profile.html', {
         'profile_user': profile_user,
