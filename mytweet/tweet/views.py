@@ -125,6 +125,7 @@ def search_tweets(request):
             ).filter(rank__gt=0).order_by('-rank', '-created_at')
         )
 
+        # Compile the regex once to reuse it for all matching tweets
         pattern = re.compile(re.escape(query), re.IGNORECASE)
 
         for tweet in tweets:
