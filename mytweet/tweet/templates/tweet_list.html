@@ -109,7 +109,7 @@ Tweets
                         type="text"
                         name="q" required
                         class="form-control form-control-sm"
-                        placeholder="Search tweets..."
+                        placeholder="e.g. travel destinations"
                         aria-label="Search">
                     <button class="btn btn-primary btn-sm" type="submit">
                         Search
@@ -175,6 +175,17 @@ Tweets
                     {% endfor %}
 
                 </div>
+                {% if all_tweets.has_other_pages %}
+                    <div class="pagination-controls">
+                        {% if all_tweets.has_previous %}
+                            <a href="?page={{ all_tweets.previous_page_number }}" class="btn btn-outline-light btn-sm">Previous</a>
+                        {% endif %}
+                        <span class="pagination-info">Page {{ all_tweets.number }} of {{ all_tweets.paginator.num_pages }}</span>
+                        {% if all_tweets.has_next %}
+                            <a href="?page={{ all_tweets.next_page_number }}" class="btn btn-outline-light btn-sm">Next</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
             </div>
         </div>
 
