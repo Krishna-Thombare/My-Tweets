@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
+from django.templatetags.static import static
 
 # Create your models here.
 
@@ -23,6 +24,16 @@ class Tweet(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.text[:10]}'
+    
+    def get_image_url(self):
+        if self.photo:
+            return self.photo.url
+        try:
+            if self.user.profile.photo:
+                return self.user.profile.photo.url
+        except Profile.DoesNotExist:
+            pass
+        return static('images/default_profile.png')
     
 class Profile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
