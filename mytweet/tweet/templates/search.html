@@ -29,7 +29,7 @@ Search Results
                         data-avatar="{% if tweet.user.profile.photo %}{{ tweet.user.profile.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
                         data-date="{{ tweet.created_at }}"
                         data-text="{{ tweet.text }}"
-                        data-img="{% if tweet.photo %}{{ tweet.photo.url }}{% else %}{% static 'images/default_profile.png' %}{% endif %}"
+                        data-img="{{ tweet.get_image_url }}"
                         data-owner="{% if tweet.user == user %}1{% else %}0{% endif %}"
                         data-edit-url="{% if tweet.user == user %}{% url 'tweet_edit' tweet.id %}{% endif %}"
                         data-delete-url="{% if tweet.user == user %}{% url 'tweet_delete' tweet.id %}{% endif %}">
