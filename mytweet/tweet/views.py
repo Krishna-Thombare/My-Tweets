@@ -9,18 +9,22 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import HttpResponse
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 # Home page listing all recent tweets
-def tweet_list(request): 
-    all_tweets = Tweet.objects.select_related('user', 'user__profile').order_by('-created_at')
+def tweet_list(request):
+    tweets = Tweet.objects.select_related('user', 'user__profile').order_by('-created_at')
+
+    paginator = Paginator(tweets, 20)
+    page = request.GET.get('page', 1)
+    all_tweets = paginator.get_page(page)
 
     user_tweets = []
-
     if request.user.is_authenticated:
-        user_tweets = all_tweets.filter(user=request.user)
-    
+        user_tweets = Tweet.objects.select_related('user', 'user__profile').filter(user=request.user).order_by('-created_at')
+
     return render(request, 'tweet_list.html', {'all_tweets': all_tweets, 'user_tweets': user_tweets})
 
 # Create new tweet
