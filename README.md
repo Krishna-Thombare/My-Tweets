@@ -1,6 +1,6 @@
 ## 📌**Overview:**
 My Tweets is a full-stack Django-based web application that allows users to create, manage, and share tweets with image uploads. The platform features user 
-authentication, tweet exploration, profile management, tweet search functionality, and an iframe-based modal system for seamless interactions. It integrates 
+authentication, tweet exploration, profile management, and PostgreSQL full-text search using Django's SearchVector and SearchRank. It integrates 
 Cloudinary for cloud-based media storage and Aiven Cloud for scalable PostgreSQL database hosting.
 
 ## ✨ **Features:**
