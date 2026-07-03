@@ -8,7 +8,7 @@ import re
 from django.utils.safestring import mark_safe
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.http import HttpResponse
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, SearchHeadline
 from django.core.paginator import Paginator
 
 # Create your views here.
@@ -125,17 +125,19 @@ def search_tweets(request):
 
         tweets = list(
             Tweet.objects.select_related('user', 'user__profile').annotate(
-                rank=SearchRank(search_vector, or_query)
+                rank=SearchRank(search_vector, or_query),
+                highlighted_text=SearchHeadline(
+                    'text',
+                    or_query,
+                    config='english',
+                    start_sel='<mark>',
+                    stop_sel='</mark>',
+                    min_words=10,
+                    max_words=50,
+                    highlight_all=True,
+                )
             ).filter(rank__gt=0).order_by('-rank', '-created_at')
         )
-
-        # Compile the regex once to reuse it for all matching tweets
-        pattern = re.compile(re.escape(query), re.IGNORECASE)
-
-        for tweet in tweets:
-            tweet.highlighted_text = mark_safe(
-                pattern.sub(r"<mark>\g<0></mark>", tweet.text)
-            )
 
     return render(request, 'search.html', {'tweets': tweets, 'query': query})
 
