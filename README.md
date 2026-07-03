@@ -9,7 +9,7 @@ Cloudinary for cloud-based media storage and Aiven Cloud for scalable PostgreSQL
 3. Public user profiles showing bio, location, joined date and their tweets. 
 4. Clickable usernames and @handles linking to user profiles.
 5. Popup modals for reading full tweet content and images.
-6. Search tweets by text.
+6. PostgreSQL full-text search using Django's SearchVector and SearchRank.
 7. Cloud media storage via Cloudinary and PostgreSQL database via Aiven Cloud.
 
 ## 🛠️ **Tech Stack:**
