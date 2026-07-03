@@ -53,7 +53,7 @@ Search Results
                                 {% endif %}
                             </p>
                             <small class="grid-card-date">{{ tweet.created_at }}</small>
-                            <p class="search-result-text">{{ tweet.highlighted_text }}</p>
+                            <p class="search-result-text">{{ tweet.highlighted_text | safe }}</p>
                         </div>
 
                         {% if tweet.photo %}
