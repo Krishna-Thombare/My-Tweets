@@ -17,7 +17,7 @@ from django.core.paginator import Paginator
 def tweet_list(request):
     tweets = Tweet.objects.select_related('user', 'user__profile').order_by('-created_at')
 
-    paginator = Paginator(tweets, 20)
+    paginator = Paginator(tweets, 21)
     page = request.GET.get('page', 1)
     all_tweets = paginator.get_page(page)
 
