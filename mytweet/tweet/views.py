@@ -9,8 +9,6 @@ from django.http import HttpResponse
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, SearchHeadline
 from django.core.paginator import Paginator
 
-# Create your views here.
-
 # Home page listing all recent tweets
 def tweet_list(request):
     tweets = Tweet.objects.select_related('user', 'user__profile').order_by('-created_at')
