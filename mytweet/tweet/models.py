@@ -3,8 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.templatetags.static import static
 
-# Create your models here.
-
 class CustomUser(AbstractUser):
     username = models.CharField(
         max_length=150,
