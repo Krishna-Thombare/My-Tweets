@@ -4,7 +4,7 @@ authentication, tweet exploration, profile management, and PostgreSQL full-text 
 Cloudinary for cloud-based media storage and Aiven Cloud for scalable PostgreSQL database hosting.
 
 ## ✨ **Features:**
-1. User registration with unique @handle, profile photo, city and country.
+1. User registration with username, unique @handle, profile photo, city and country.
 2. Post tweets with optional photo attachments.
 3. Public user profiles showing bio, location, joined date and their tweets. 
 4. Clickable usernames and @handles linking to user profiles.
