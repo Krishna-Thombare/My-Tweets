@@ -68,6 +68,7 @@ class StyledAuthenticationForm(AuthenticationForm):
         self.fields['username'].widget.attrs.update({'class': 'login-input'})
         self.fields['password'].widget.attrs.update({'class': 'login-input'})
 
+# Form to edit the user's profile photo and location.
 class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
