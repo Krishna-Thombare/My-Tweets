@@ -168,7 +168,7 @@ def profile_edit(request):
         'embed': request.GET.get('embed') == '1',
     })
 
-# About us page
+# About Us Page
 def aboutus(request):
     return render(request, 'aboutus.html')
     
