@@ -2,7 +2,7 @@ from django import forms
 from .models import Tweet, Profile, CustomUser
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-# Default Syntax
+# Form for creating and editing tweets.
 class TweetForm(forms.ModelForm):
     class Meta:
         model = Tweet   # model name
@@ -17,7 +17,7 @@ class TweetForm(forms.ModelForm):
                 'class': 'tweet-form-file',
             }),
         }
-        
+
 # Form for registering a new user with profile details.
 class UserRegistrationForm(UserCreationForm):
 
