@@ -17,7 +17,8 @@ class TweetForm(forms.ModelForm):
                 'class': 'tweet-form-file',
             }),
         }
-
+        
+# Form for registering a new user with profile details.
 class UserRegistrationForm(UserCreationForm):
 
     email = forms.EmailField(
