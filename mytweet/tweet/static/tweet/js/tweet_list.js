@@ -96,3 +96,22 @@ if (mobileFabBtn) {
         openFormModal(this.dataset.createUrl + '?embed=1');
     });
 }
+
+const placeholders = [
+    "e.g. travel destinations",
+    "e.g. ai images",
+    "e.g. are there aliens",
+    "e.g. funny memes",
+    "e.g. filmmaking tips"
+];
+
+const input = document.getElementById("searchInput");
+let index = 0;
+
+setInterval(() => {
+    // Only change if the user hasn't started typing
+    if (input.value === "") {
+        index = (index + 1) % placeholders.length;
+        input.placeholder = placeholders[index];
+    }
+}, 2000); // Change every 2 seconds
