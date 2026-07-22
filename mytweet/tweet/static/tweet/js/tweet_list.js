@@ -25,8 +25,8 @@ function openTweetModal(id) {
     actions.innerHTML = '';
     if (card.dataset.owner === '1') {
         actions.innerHTML =
-        '<a href="#" class="btn btn-primary btn-sm" onclick="closeTweetModal(); openFormModal(\'' + card.dataset.editUrl + '?embed=1\'); return false;">Edit</a>' +
-        '<a href="#" class="btn btn-danger btn-sm" onclick="closeTweetModal(); openFormModal(\'' + card.dataset.deleteUrl + '?embed=1\'); return false;">Delete</a>';
+        '<a href="#" class="btn btn-outline-dark text-white" onclick="closeTweetModal(); openFormModal(\'' + card.dataset.editUrl + '?embed=1\'); return false;">Edit</a>' +
+        '<a href="#" class="btn btn-outline-dark text-white" onclick="closeTweetModal(); openFormModal(\'' + card.dataset.deleteUrl + '?embed=1\'); return false;">Delete</a>';
     }
 
     document.getElementById('tweetModalOverlay').classList.add('active');
