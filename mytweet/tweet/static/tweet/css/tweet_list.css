@@ -149,7 +149,7 @@ body {
     flex: 0 0 1.3px;
     background: #444444;
     margin: 0 20px;
-    height: stretch;
+    height: auto;
 }
 
 /* RIGHT PANEL */
