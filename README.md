@@ -13,11 +13,11 @@ Cloudinary for cloud-based media storage and Aiven Cloud for scalable PostgreSQL
 7. Cloud media storage via Cloudinary and PostgreSQL database via Aiven Cloud.
 
 ## 🛠️ **Tech Stack:**
-1. Backend: Python, Django
-2. Database: PostgreSQL (Aiven Cloud)
-3. Frontend: HTML, CSS, Bootstrap
-4. Media Storage: Cloudinary (Cloud Storage)
-5. Deployment: Render
+1. Backend:- Python, Django
+2. Database:- PostgreSQL (Aiven Cloud)
+3. Frontend:- HTML, CSS, Bootstrap
+4. Media Storage:- Cloudinary (Cloud Storage)
+5. Deployment:- Render
 
 ## 🧠 **Architecture:**
 1. MVT architecture with server-side rendering using Django's template engine.
