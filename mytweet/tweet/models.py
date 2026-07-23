@@ -25,7 +25,9 @@ class Tweet(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.text[:10]}'
     
-    # Get the profile image URL with fallback options.
+    # Return the tweet image if available.
+    # If the tweet has no image, return the user's profile photo.
+    # If neither exists, return a default placeholder image.
     def get_image_url(self):
         if self.photo:
             return self.photo.url
