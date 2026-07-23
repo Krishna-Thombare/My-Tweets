@@ -39,20 +39,25 @@ class Tweet(models.Model):
         return static('images/default_profile.png')
     
 class Profile(models.Model):
+    # Create a one-to-one relationship so each user has exactly one profile.
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+    # Unique username/handle displayed on the user's profile.
     handle = models.CharField(max_length=15, unique=True, blank=False)
+    
     photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True, max_length=255)
     city = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50, blank=True)
 
     class Meta:
+        # Ensure the profile handle is never stored as an empty string.
         constraints = [
             models.CheckConstraint(
                 condition=~models.Q(handle=''),
                 name='profile_handle_not_empty'
             )
         ]
-
+    # Return the user's handle as the string representation of the profile.
     def __str__(self):
         return f'@{self.handle}'
     
