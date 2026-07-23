@@ -21,7 +21,7 @@ class Tweet(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-    # String representation of the model
+    # String representation of the model in Django Admin
     def __str__(self):
         return f'{self.user.username} - {self.text[:10]}'
     
